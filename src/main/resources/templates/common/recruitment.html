@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+    <h1>
+        <span th:text="${recruitment.name}"></span>
+    </h1>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead class="bg-info ">
+                <tr>
+                    <th scope="col">
+                        <span th:text="#{recruitment.name}"></span>
+                    </th>
+                    <th scope="col">
+                        <span th:text="#{recruitment.surname}"></span>
+                    </th>
+                    <th scope="col">
+                        <span th:text="#{recruitment.patronymic}"></span>
+                    </th>
+                    <th scope="col">
+                        <span th:text="#{recruitment.score}"></span>
+                    </th>
+                    <th scope="col">
+                        <span th:text="#{recruitment.status}"></span>
+                    </th>
+                    <th scope="col">
+                        <span th:text="#{recruitment.actions}"></span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="bg-light" th:each="app : ${applicationList} ">
+
+                <tr>
+                    <td>
+                        <span th:text="${app.userId.firstName}"> </span>
+
+                    </td>
+                    <td>
+                        <span th:text="${app.userId.secondName}"> </span>
+
+                    </td>
+                    <td>
+                        <span th:text="${app.userId.patronymic}"> </span>
+
+                    </td>
+                    <td>
+                        <span th:text="${app.averageScore}"> </span>
+
+                    </td>
+                    <td>
+                        <span th:text="${app.applicationStateId.applicationStateEnum}"> </span>
+                    </td>
+
+                    <td>
+                        <a th:href="@{'/application?applicationId=' + ${app.id}}" class=" btn btn-primary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

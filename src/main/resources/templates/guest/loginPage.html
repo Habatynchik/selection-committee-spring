@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-title text-center mb-5 fw-light fs-5" th:text="#{loginPage.title}">
+                    </h5>
+
+                    <form id="loginForm" th:action="@{/login}" method="post"
+                          autocomplete="on">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" name="username"
+                                   placeholder="Username">
+                            <label for="floatingInput" th:text="#{loginPage.login}"></label>
+                        </div>
+
+                        <div class="mb-3 text-center" th:if="${param.error}"
+                             th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+                            <p class="text-center error-message mt-3"
+                               th:if="${errorMsg.equals('User account is locked')}"
+                               th:text="#{loginPage.exception.accountIsBlocked}"></p>
+                            <p class="text-center error-message mt-3" th:if="${errorMsg.equals('Bad credentials')}"
+                               th:text="#{loginPage.exception.authenticationException}"></p>
+                        </div>
+
+
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingPassword" name="password"
+                                   placeholder="Password">
+                            <label for="floatingPassword" th:text="#{loginPage.password}"></label>
+                        </div>
+
+
+                        <hr class="my-4">
+
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
+                                    th:text="#{loginPage.loginButton}">
+
+                            </button>
+                        </div>
+
+                        <div class="form-text text-center mt-4 mb-2">
+                            <span th:text="#{loginPage.dontHaveAccount}"></span>
+                                <a href="/registration">                                <b
+                                        th:text="#{loginPage.signUp}"></b>
+                            </a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

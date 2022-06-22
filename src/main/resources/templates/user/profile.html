@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card border-0 shadow">
+
+                <div class="card-header">
+                    <h3>
+                        <span th:text="#{profile.title}"></span>
+                    </h3>
+                </div>
+
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.firstName}"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${userProfile.firstName}"> </span>
+
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.secondName}"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text=" ${userProfile.secondName}"> </span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.patronymic}"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+
+                            <span th:text=" ${userProfile.patronymic}"> </span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.email}"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${userProfile.email}"> </span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.city}"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${userProfile.city}"> </span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.region}"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text=" ${userProfile.region}"> </span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.institution}"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${userProfile.institution}"> </span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{profile.history}"></span>
+                        </dt>
+                        <dd class="col-sm-8"></dd>
+
+                        <tr th:each="app: ${applications}">
+
+                            <dt class="col-sm-6">
+                                <a th:href="@{'/application?applicationId=' + ${app.id}}">
+                                    <span th:text="${app.recruitmentId.name}"></span>
+                                </a>
+                            </dt>
+                            <dd class="col-sm-6">
+                                <span th:text="${app.applicationStateId.ApplicationStateEnum}"></span>
+                            </dd>
+
+                        </tr>
+
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

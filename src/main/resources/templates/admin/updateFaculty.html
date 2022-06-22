@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card border-0 shadow">
+
+                <div class="card-header">
+                    <h5>
+                        <span th:text="#{changeFaculty.newFaculty}"></span>
+
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/change-faculty}" method="post" th:object="${facultyDto}">
+                        <div class="modal-body">
+
+                            <input type="hidden" class="form-control" id="facultyId"
+                                   name="facultyId" th:field="*{id}">
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="facultyName"
+                                       name="facultyName" th:field="*{name}">
+                                <label for="facultyName">
+                                    <span th:text="#{changeFaculty.facultyName}"></span>
+                                </label>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${facultyNameIsReserved}"
+                                 th:text=" #{faculty.exception.facultyNameIsReserved}">
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.errors('name').contains('emptyField')}"
+                                 th:text=" #{recruitment.exception.emptyField}">
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="generalCapacity"
+                                       name="generalCapacity" th:field="*{generalCapacity}">
+                                <label for="generalCapacity">
+                                    <span th:text="#{changeFaculty.generalCapacity}"></span>
+                                </label>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.errors('generalCapacity').contains('generalCapacityIncorrect')}"
+                                 th:text=" #{recruitment.exception.generalCapacityIncorrect}">
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.errors('generalCapacity').contains('generalCapacityLessBudgetCapacity')}"
+                                 th:text=" #{recruitment.exception.generalCapacityLessBudgetCapacity}">
+                            </div>
+
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="budgetCapacity"
+                                       name="budgetCapacity" th:field="*{budgetCapacity}">
+                                <label for="budgetCapacity">
+                                    <span th:text="#{changeFaculty.budgetCapacity}"></span>
+                                </label>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.errors('budgetCapacity').contains('budgetCapacityIncorrect')}"
+                                 th:text=" #{recruitment.exception.budgetCapacityIncorrect}">
+                            </div>
+
+
+                            <div class="form-floating mb-3">
+                                <div class="row  row-cols-lg-4 g-2 g-lg-3 ">
+
+                                    <tr th:each="subject: ${subjectList}">
+
+                                        <input type="checkbox"
+                                               autocomplete="off"
+                                               th:field="*{requiredSubjectList}"
+                                               th:value="${subject.id}"
+                                               th:id="${subject.id}"
+                                        >
+
+                                        <label class="btn  p-3 border btn-outline-secondary"
+                                               th:for="${subject.id}" th:text="${subject.nameEn}">
+                                        </label> <br>
+
+                                    </tr>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.errors('requiredSubjectList').contains('fewRequiredSubjects')}"
+                                 th:text=" #{faculty.exception.fewRequiredSubjects}">
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-primary">
+                                <span th:text="#{changeFaculty.ok}"></span>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

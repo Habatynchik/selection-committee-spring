@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+
+
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-sm-8">
+                <h2>
+                    <span th:text="#{users.users}"></span>
+                </h2>
+            </div>
+            <div class="col-sm-4 text-end">
+
+                <div class="row ">
+
+                    <div class="dropdown col">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <span th:text="#{users.sortBy}"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                            <li>
+                                <a class="dropdown-item sort-order" href="#" value="firstName">
+                                    <span th:text="#{users.name}"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item sort-order" href="#" value="secondName">
+                                    <span th:text="#{users.surname}"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item sort-order" href="#" value="patronymic">
+                                    <span th:text="#{users.patronymic}"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item sort-order" href="#" value="email">
+                                    <span th:text="#{users.email}"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead class="bg-info ">
+                    <tr>
+                        <th scope="col">
+                            <span th:text="#{users.id}"></span>
+                        </th>
+                        <th scope="col">
+                            <span th:text="#{users.name}"></span>
+                        </th>
+                        <th scope="col">
+                            <span th:text="#{users.surname}"></span>
+                        </th>
+                        <th scope="col">
+                            <span th:text="#{users.patronymic}"></span>
+                        </th>
+                        <th scope="col">
+                            <span th:text="#{users.email}"></span>
+                        </th>
+                        <th scope="col">
+                            <span th:text="#{users.actions}"></span>
+                        </th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody class="bg-light" th:each="user : ${userList}">
+                    <tr>
+                        <th scope="row">
+                            <span th:text="${user.id}"></span>
+                        </th>
+                        <td>
+                            <span th:text="${user.firstName}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${user.secondName}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${user.patronymic}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${user.email}"></span>
+                        </td>
+
+                        <td>
+                            <div class="row ">
+                                <div class="col-md-auto ">
+                                    <a th:href="@{'/user/profile?userId=' + ${user.id}}"
+                                       class=" btn btn-primary  btn-sm">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="col-md-auto ">
+                                    <form th:action="@{/admin/users}"class=" mb-0" method="post">
+
+                                        <input type="hidden" name="userId" th:value="${user.id}">
+                                        <input type="hidden" name="userBlocked" th:value="${user.blocked}">
+
+                                        <button class="btn btn-success btn-sm" type="submit"
+                                                th:if="${user.blocked}">
+                                            <span th:text="#{users.unblock}"></span>
+                                        </button>
+
+                                        <button class="btn btn-danger btn-sm" type="submit"
+                                                th:if="${!user.blocked}">
+                                            <span th:text="#{users.block}"></span>
+                                        </button>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

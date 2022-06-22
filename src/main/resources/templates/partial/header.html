@@ -1,0 +1,101 @@
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li>
+                <a href="/" class="nav-link px-2 link-secondary" th:text="#{header.home}">
+                </a>
+            </li>
+            <li>
+                <a href="/faculties" class="nav-link px-2 link-dark" th:text="#{header.faculties}">
+                </a>
+            </li>
+            <li>
+                <a href="/recruitments" class="nav-link px-2 link-dark" th:text="#{header.recruitments}">
+                </a>
+            </li>
+
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/admin/subjects}" class="nav-link px-2 link-dark" th:text="#{header.subjects}">
+                </a>
+            </li>
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/admin/users}" class="nav-link px-2 link-dark" th:text="#{header.users}">
+                </a>
+            </li>
+
+
+            <li class="nav-link px-2 link-dark">
+                <div class="sl-nav">
+                    <span th:text="#{language.language}"> Language </span>
+                    <ul>
+                        <li><b th:text="#{language.current}">
+
+                        </b> <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <div class="triangle"></div>
+                            <ul id="dropdown">
+                                <li id="btn-en">
+                                    <i class="sl-flag flag-usa">
+                                        <div id="english"></div>
+                                    </i>
+                                    <span th:text="#{language.english}">
+                                        english
+                                    </span>
+                                </li>
+                                <li id="btn-ru">
+                                    <i class="sl-flag flag-ru">
+                                        <div id="russian"></div>
+                                    </i>
+                                    <span th:text="#{language.russian}">
+                                        russian
+                                    </span>
+                                </li>
+                                <li id="btn-uk">
+                                    <i class="sl-flag flag-uk">
+                                        <div id="ukrainian"></div>
+                                    </i>
+                                    <span th:text="#{language.ukrainian}">
+                                        ukrainian
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+        </ul>
+
+
+        <div class="col-md-3 text-end">
+
+            <div sec:authorize="!isAuthenticated()">
+                <form style="padding: 0; margin: 0" method="get" action="/login">
+                    <button type="submit" class="btn btn-outline-primary me-2"
+                            th:text="#{header.login}">
+
+                    </button>
+                </form>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <form style="padding: 0; margin: 0" method="get" action="/logout">
+
+                    <a th:href="@{'/user/profile?userId=' + ${#authentication.getPrincipal().getId()}}"
+                       class="nav-text px-2 link-dark" sec:authentication="name"></a>
+
+                    <button type="submit" class="btn btn-outline-primary me-2"
+                            th:text="#{header.signOut}">>
+
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </header>
+
+</div>

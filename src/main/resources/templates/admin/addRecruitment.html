@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Tittle</title>
+
+  <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-6 mx-auto">
+      <div class="card border-0 shadow">
+
+        <div class="card-header">
+          <h5>
+            <span th:text="#{addRecruitment.tittle}"></span>
+          </h5>
+        </div>
+        <div class="card-body">
+
+          <form class="mb-3" th:action="@{/admin/add-recruitment}"  method="post" th:object="${recruitmentDto}">
+            <div class="modal-body">
+
+              <input type="hidden" th:field="*{faculty}">
+              <input type="hidden" th:field="*{remainingGeneralCapacity}">
+              <input type="hidden" th:field="*{remainingBudgetCapacity}">
+
+              <div class="mb-3">
+                <label for="name" class="col-form-label">
+                  <span th:text="#{addRecruitment.name} + ': '"></span>
+                </label>
+                <input type="text" class="form-control" id="name" th:field="*{name}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('name').contains('emptyField')}"
+                   th:text=" #{recruitment.exception.emptyField}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('name').contains('recruitmentNameIsReserved')}"
+                   th:text=" #{recruitment.exception.recruitmentNameIsReserved}">
+              </div>
+
+              <div class="mb-3">
+                <label for="generalCapacity" class="col-form-label">
+                  <span th:text="#{addRecruitment.generalCapacity} + ': '"></span>
+                  <span th:text=" '(' + #{addRecruitment.remainingGeneralPlaces}  + ': '+ ${recruitmentDto.remainingGeneralCapacity} + ')'"></span>
+                </label>
+                <input type="number" min = "0" th:max="${recruitmentDto.remainingGeneralCapacity}" class="form-control" id="generalCapacity" th:field="*{generalCapacity}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('generalCapacity').contains('generalCapacityIncorrect')}"
+                   th:text=" #{recruitment.exception.generalCapacityIncorrect}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('generalCapacity').contains('generalCapacityLessBudgetCapacity')}"
+                   th:text=" #{recruitment.exception.generalCapacityLessBudgetCapacity}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('generalCapacity').contains('generalCapacityIsMore')}"
+                   th:text=" #{recruitment.exception.generalCapacityIsMore}">
+              </div>
+
+              <div class="mb-3">
+                <label for="budgetCapacity" class="col-form-label">
+                  <span th:text="#{addRecruitment.budgetCapacity} + ': '"></span>
+                  <span th:text=" '(' + #{addRecruitment.remainingBudgetPlaces}  + ': '+ ${recruitmentDto.remainingBudgetCapacity} + ')'"></span>
+                </label>
+                <input type="number" min = "0" th:max="${recruitmentDto.remainingBudgetCapacity}" class="form-control" id="budgetCapacity" th:field="*{budgetCapacity}">
+              </div>
+
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('budgetCapacity').contains('budgetCapacityIncorrect')}"
+                   th:text=" #{recruitment.exception.budgetCapacityIncorrect}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('budgetCapacity').contains('budgetCapacityIsMore')}"
+                   th:text=" #{recruitment.exception.budgetCapacityIsMore}">
+              </div>
+
+              <div class="mb-3">
+                <label for="startDate" class="col-form-label">
+                  <span th:text="#{addRecruitment.startDate} + ': '"></span>
+                </label>
+                <input type="date" class="form-control" id="startDate" th:field="*{startDate}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('startDate').contains('emptyField')}"
+                   th:text=" #{recruitment.exception.emptyField}">
+              </div>
+
+              <div class="alert alert-warning" role="alert"
+                   th:if="${#fields.errors('startDate').contains('startDateOutOfDate')}"
+                   th:text=" #{recruitment.exception.startDateOutOfDate}">
+              </div>
+
+              <div class="mb-3">
+                <label for="endDate" class="col-form-label">
+                  <span th:text="#{addRecruitment.endDate} + ': '"></span>
+                </label>
+                <input type="date" class="form-control" id="endDate" th:field="*{endDate}">
+              </div>
+            </div>
+
+            <div class="alert alert-warning" role="alert"
+                 th:if="${#fields.errors('endDate').contains('emptyField')}"
+                 th:text=" #{recruitment.exception.emptyField}">
+            </div>
+
+            <div class="alert alert-warning" role="alert"
+                 th:if="${#fields.errors('endDate').contains('endDateBeforeStartDate')}"
+                 th:text=" #{recruitment.exception.endDateBeforeStartDate}">
+            </div>
+
+            <div class="alert alert-warning" role="alert"
+                 th:if="${#fields.errors('endDate').contains('endDateAfterCurrentYear')}"
+                 th:text=" #{recruitment.exception.endDateAfterCurrentYear}">
+            </div>
+
+            <div class="modal-footer">
+              <button id="click" type="submit" class="btn btn-primary">
+                <span th:text="#{addFaculty.ok}"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

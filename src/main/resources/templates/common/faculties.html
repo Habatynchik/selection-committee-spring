@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+
+    <div class="row mb-4 ">
+
+        <div class="dropdown col-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                <span th:text="#{faculties.sortBy}"></span>
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <li><a class="dropdown-item sort-order" href="#" value="name">
+                    <span th:text="#{faculties.name}"></span>
+                </a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="generalCapacity">
+                    <span th:text="#{faculties.generalCapacity}"></span>
+                </a></li>
+                <li><a class="dropdown-item sort-order" href="#" value="budgetCapacity">
+                    <span th:text="#{faculties.budgetCapacity}"></span>
+                </a></li>
+            </ul>
+        </div>
+
+        <div class="col-1 text-start ">
+            <button type="button" class="order btn btn-secondary" >
+                🠕
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-4 g-4" th:if="${facultyList != null}">
+
+        <tr th:each="faculty: ${facultyList}">
+
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <a style="color: darkcyan"
+                           th:href="@{'/view-faculty?id=' + ${faculty.id}}">
+                            <span th:text="${faculty.name}"></span>
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="#{faculties.info}"></h5>
+
+                        <p class="card-text">
+                            <span th:text="#{faculties.generalCapacity} +':' + ${faculty.generalCapacity}"></span>
+                        </p>
+                        <p class="card-text">
+                            <span th:text="#{faculties.budgetCapacity} +':' + ${faculty.budgetCapacity}"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </tr>
+
+
+        <div sec:authorize="hasAuthority('ADMIN')" class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    <span th:text="#{faculties.addNewFaculty}"></span>
+                </div>
+
+                <div class="card-body">
+                    <form th:action="@{/admin/add-faculty}" method="get">
+
+                        <button type="submit" class=" btn  h-100 w-100 fs-1">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

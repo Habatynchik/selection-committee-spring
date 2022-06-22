@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+
+<div th:replace="partial/header"></div>
+
+<div class="container ">
+
+    <div class="row">
+        <h1 class="mb-5">
+            <span th:text="${faculty.name}"></span>
+        </h1>
+
+        <div class="card col-4">
+            <div class="card-body">
+                <h4 class="fw-bold">
+                    <span th:text="#{viewFaculty.generalCapacity} + ': ' + ${faculty.generalCapacity}"></span>
+                </h4>
+
+                <h4 class="fw-bold">
+                    <span th:text="#{viewFaculty.budgetCapacity} + ': ' + ${faculty.budgetCapacity}"></span>
+                </h4>
+
+                <h4 class="fw-bold">
+                    <span th:text="#{viewFaculty.requiredSubjects} + ': '"></span>
+                </h4>
+
+                <ul class="list-group list-group-flush mt-0 mb-1">
+                    <th:block th:each="subject : ${requiredSubjectList}">
+
+                        <li class="list-group-item">
+                            <span th:text="${subject.nameEn}"></span>
+                        </li>
+
+                    </th:block>
+
+
+                </ul>
+
+
+                <div class="row" sec:authorize="hasAuthority('ADMIN')">
+                    <div class="col-md-auto">
+                        <form th:action="@{/admin/view-faculty/delete}" method="post">
+                            <input type="hidden" name="facultyId" th:value="${faculty.id}">
+                            <button class="btn btn-primary  " type="submit">
+                                <span th:text="#{viewFaculty.delete}"></span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="col-md-auto">
+                        <form th:action="@{/admin/change-faculty}" method="get">
+
+                            <input type="hidden" name="facultyId" th:value="${faculty.id}">
+                            <button class="btn btn-primary " type="submit">
+                                <span th:text="#{viewFaculty.change}"></span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="col-md-auto">
+                        <form th:action="@{/admin/add-recruitment}" method="get">
+                            <input type="hidden" name="facultyId" th:value="${faculty.id}">
+                            <button class="btn btn-primary " type="submit">
+                                <span th:text="#{viewFaculty.openRecruitment}"></span>
+                            </button>
+                        </form>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="col text-center">
+            <p>
+                <span th:text="#{viewFaculty.openedRecruitments} + ': '"></span>
+            </p>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                <th:block th:each="recruitment : ${recruitmentsList}">
+
+                    <div class="col">
+                        <div class="card h-100">
+
+                            <div class="card-body">
+                                <a th:href="@{'/recruitment?recruitmentId=' + ${recruitment.id}}"
+                                   class="stretched-link"></a>
+
+                                <h5 class="card-title">
+                                    <span th:text="${recruitment.name}"></span>
+                                </h5>
+
+                                <p class="card-text">
+                                    <span th:text="#{viewFaculty.generalCapacity} + ': ' + ${recruitment.generalCapacity}"></span>
+                                </p>
+
+                                <p class="card-text">
+                                    <span th:text="#{viewFaculty.budgetCapacity} + ': ' + ${recruitment.budgetCapacity}"></span>
+                                </p>
+
+                                <p class="card-text">
+                                    <span th:text="${recruitment.startDate} + ' - '"></span>
+                                    <span th:text="${recruitment.endDate}"></span>
+                                </p>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <form th:action="@{/user/create-application}" method="get">
+                                            <input type="hidden" name="recruitmentId" th:value="${recruitment.id}">
+                                            <!--<input type="hidden" name="userId" th:value="${#authentication.getPrincipal().getId()}">
+-->
+
+                                            <button type="submit" class="btn btn-primary disabled"
+                                                    sec:authorize="hasAuthority('ADMIN')">
+                                                <span th:text="#{recruitments.register}"></span>
+
+                                            </button>
+
+                                            <button type="submit" class="btn btn-primary disabled"
+                                                    th:if="${recruitment.closed}"  sec:authorize="!hasAuthority('ADMIN')">
+                                                <span th:text="#{recruitments.register}"></span>
+                                            </button>
+
+                                            <button type="submit" class="btn btn-primary "
+                                                    th:if="${!recruitment.closed}"
+                                                    sec:authorize="!hasAuthority('ADMIN')">
+                                                <span th:text="#{recruitments.register}"></span>
+                                            </button>
+
+
+                                        </form>
+                                    </div>
+
+
+                                    <div class="col" sec:authorize="hasAuthority('ADMIN')">
+                                        <form
+                                                th:action="@{/admin/close-recruitment}" method="post">
+                                            <input type="hidden" name="recruitmentId" th:value="${recruitment.id}">
+
+                                            <button type="submit" class="btn btn-primary disabled"
+                                                    th:if="${recruitment.closed}">
+                                                <span th:text="#{recruitments.close}"></span>
+                                            </button>
+
+                                            <button type="submit" class="btn btn-primary "
+                                                    th:if="${!recruitment.closed}">
+                                                <span th:text="#{recruitments.close}"></span>
+                                            </button>
+
+                                        </form>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </th:block>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+</html>

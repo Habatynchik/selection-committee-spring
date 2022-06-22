@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card border-0 shadow">
+
+                <div class="card-header">
+                    <h5>
+                        <span th:text="#{addApplication.tittle}"></span>
+                    </h5>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <span th:text="#{addApplication.input}"></span>
+                    </h5>
+
+                    <form th:action="@{/user/create-application}" method="post" th:object="${applicationDto}">
+
+                        <input type="hidden" th:field="*{recruitment}">
+                        <input type="hidden" th:field="*{user}">
+
+                        <div class="modal-body">
+
+                            <div class="form-floating mb-3">
+                                <div class="row  row-cols-lg-2 g-2 g-lg-3 ">
+
+                                    <div class="form-floating mb-3" th:each="subject : ${requiredSubjectList}">
+
+                                        <input type="number" class="form-control"
+                                               min = "100" max = "200"
+                                               th:id="${subject.id}" th:field="*{grades}">
+
+                                        <label th:for="${subject.id}">
+                                            <span th:text="${subject.nameEn}"></span>
+                                        </label>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${invalidGrade}"
+                             th:text=" #{application.exception.invalidGrade}">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${userAlreadyApplied}"
+                             th:text="#{application.exception.userAlreadyApplied}">
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                <span th:text="#{addApplication.submit}"></span>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

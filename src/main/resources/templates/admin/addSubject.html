@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card border-0 shadow">
+
+                <div class="card-header">
+                    <h5>
+                        <span th:text="#{subject.tittle}"></span>
+                    </h5>
+                </div>
+                <div class="card-body">
+
+                    <form class="mb-3"
+                          th:action="@{/admin/add-subject}" method="post" th:object="${subjectDto}">
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label for="nameEn" class="col-form-label">
+                                    <span th:text="#{language.english} + ': '"></span>
+                                </label>
+                                <input type="text" class="form-control" id="nameEn" th:field="*{nameEn}">
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.hasErrors('nameEn')}"
+                                 th:text=" #{recruitment.exception.emptyField}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nameRu" class="col-form-label">
+                                    <span th:text="#{language.russian} + ': '"></span>
+                                </label>
+                                <input type="text" class="form-control" id="nameRu"th:field="*{nameRu}">
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.hasErrors('nameRu')}"
+                                 th:text=" #{recruitment.exception.emptyField}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nameUk" class="col-form-label">
+                                    <span th:text="#{language.ukrainian} + ': '"></span>
+                                </label>
+                                <input type="text" class="form-control" id="nameUk" th:field="*{nameUk}">
+                            </div>
+
+                            <div class="alert alert-warning" role="alert"
+                                 th:if="${#fields.hasErrors('nameUk')}"
+                                 th:text=" #{recruitment.exception.emptyField}">
+                            </div>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button id="click" type="submit" class="btn btn-primary">
+                                <span th:text="#{subject.ok}"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

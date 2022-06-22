@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-5 mx-auto">
+            <div class="card border-0 shadow">
+
+                <div class="card-header">
+                    <h3>
+                        <span th:text="${recruitment.name}"></span>
+                    </h3>
+                </div>
+
+                <div class="card-body">
+
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <span th:text="#{application.name} + ': '"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${app.userId.firstName}"></span>
+
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{application.surname} + ': '"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${app.userId.secondName}"></span>
+
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{application.patronymic} + ': '"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${app.userId.patronymic}"></span>
+
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{application.averageScore} + ': '"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${app.averageScore}"></span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{application.state} + ': '"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <span th:text="${app.applicationStateId.applicationStateEnum}"></span>
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <span th:text="#{application.subjects} + ': '"></span>
+                        </dt>
+                        <dd class="col-sm-8">
+                            <dl class="row">
+
+                                <th:block th:each="subject : ${subjectUserGradesList}">
+
+                                    <dt class="col-sm-8">
+                                        <span th:text="${subject.subjectId.nameEn} + ': '"></span>
+
+                                    </dt>
+                                    <dd class="col-sm-4">
+                                        <span th:text="${subject.grade}"></span>
+                                    </dd>
+                                </th:block>
+
+                            </dl>
+                        </dd>
+
+                    </dl>
+
+
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" th:href="@{'/recruitment?recruitmentId=' + ${recruitment.id}}">
+                            <span th:text="#{application.close}"></span>
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

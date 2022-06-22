@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div id="registration">
+    <div class="container">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+
+                    <h5 class="card-title text-center mb-5 fw-light fs-5" th:text="#{registrationPage.title}"></h5>
+
+                    <form id="registration-form" autocomplete="off" class="form"
+                          th:action="@{/registration}" method="post" th:object="${userDto}">
+
+
+                        <div class="form-group pb-3">
+                            <label for="username" th:text="#{registrationPage.login}"></label>
+                            <input type="text" name="username" th:field="*{username}" id="username"
+                                   maxlength="64" class="form-control" aria-describedby="loginHelp">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                           th:if="${#fields.hasErrors('username')}"
+                           th:text="#{registrationPage.exception.loginSizeOutOfBoundsException}">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                           th:if="${usernameIsReserved}"
+                           th:text="#{registrationPage.exception.loginIsReserved}">
+                        </div>
+
+
+                        <div class="form-group pb-3" >
+                            <label for="email" th:text="#{registrationPage.email} + ':'"></label><br>
+                            <input type="text" name="email" th:field="*{email}" id="email"
+                                   maxlength="128" class="form-control" aria-describedby="emailHelp">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.errors('email').contains('sizeOutOfBounds')}"
+                             th:text="#{registrationPage.exception.emailSizeOutOfBoundsException}">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.errors('email').contains('emailNotMatchTemplate')}"
+                             th:text=" #{registrationPage.exception.emailNotMatchTemplateException}">
+                        </div>
+
+                        <p class="error-message" th:if="${emailIsReserved}"
+                           th:text="#{registrationPage.exception.emailIsReserved}">
+                        </p>
+
+
+                        <div class="form-group pb-3">
+                            <label for="password" th:text="#{registrationPage.password} + ':'"> </label><br>
+                            <input type="password" name="password" id="password" maxlength="64"
+                                   class="form-control" th:field="*{password}">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.errors('password').contains('sizeOutOfBounds')}"
+                             th:text=" #{registrationPage.exception.passwordSizeOutOfBoundsException}">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.errors('password').contains('passwordNotMatchTemplate')}"
+                             th:text=" #{registrationPage.exception.passwordNotMatchTemplateException}">
+                        </div>
+
+
+                        <div class="form-group pb-3">
+                            <label for="passwordCopy" th:text="#{registrationPage.confirmPassword} + ':'"> </label><br>
+                            <input type="password" name="passwordCopy" id="passwordCopy"
+                                   class="form-control" th:field="*{passwordCopy}">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${passwordsNotSame}"
+                             th:text="#{registrationPage.exception.passwordsNotSame}">
+                        </div>
+
+
+                        <div class="form-group pb-3">
+                            <label for="firstName" th:text="#{registrationPage.firstName} + ':'"> </label><br>
+                            <input type="text" name="firstName" th:field="*{firstName}"
+                                   id="firstName" maxlength="32" class="form-control">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.hasErrors('firstName')}"
+                             th:text=" #{registrationPage.exception.firstNameSizeOutOfBoundsException}">
+                        </div>
+
+
+                        <div class="form-group pb-3">
+                            <label for="secondName" th:text="#{registrationPage.secondName} + ':'"></label><br>
+                            <input type="text" name="secondName" th:field="*{secondName}"
+                                   id="secondName" maxlength="32" class="form-control">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.hasErrors('secondName')}"
+                             th:text=" #{registrationPage.exception.secondNameSizeOutOfBoundsException}">
+                        </div>
+
+
+                        <div class="form-group pb-3">
+                            <label for="patronymic" th:text="#{registrationPage.patronymic} + ':'"> </label><br>
+                            <input type="text" name="patronymic" th:field="*{patronymic}"
+                                   id="patronymic" maxlength="32" class="form-control">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.hasErrors('patronymic')}"
+                             th:text=" #{registrationPage.exception.patronymicSizeOutOfBoundsException}">
+                        </div>
+
+
+                        <div class="form-group pb-3">
+                            <label for="region" th:text="#{registrationPage.region} + ':'"> </label><br>
+                            <input type="text" name="region" th:field="*{region}" id="region"
+                                   maxlength="128" class="form-control">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.hasErrors('region')}"
+                             th:text=" #{registrationPage.exception.regionSizeOutOfBoundsException}">
+                        </div>
+
+                        <div class="form-group pb-3">
+                            <label for="city" th:text="#{registrationPage.city} + ':'"> </label><br>
+                            <input type="text" name="city" th:field="*{city}" id="city"
+                                   maxlength="128" class="form-control">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.hasErrors('city')}"
+                             th:text=" #{registrationPage.exception.citySizeOutOfBoundsException}">
+                        </div>
+
+                        <div class="form-group pb-3">
+                            <label for="institution" th:text="#{registrationPage.institution} + ':'"></label><br>
+                            <input type="text" name="institution" th:field="*{institution}"
+                                   id="institution" maxlength="128" class="form-control">
+                        </div>
+
+                        <div class="alert alert-warning" role="alert"
+                             th:if="${#fields.hasErrors('institution')}"
+                             th:text=" #{registrationPage.exception.institutionSizeOutOfBoundsException}">
+                        </div>
+
+
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-primary" th:text="#{registrationPage.signUpButton}">
+
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="form-text text-center mt-4 mb-2">
+                        <span>
+                           <span th:text="#{registrationPage.haveAccount}"></span>
+                            <a href="/login" th:text="#{registrationPage.signIn}"></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

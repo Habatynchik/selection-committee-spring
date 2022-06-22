@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container mb-4">
+
+
+    <div class="row mb-4 ">
+
+        <div class="dropdown col-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                <span th:text="#{recruitments.sortBy}"> </span>
+
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <li>
+                    <a class="dropdown-item sort-order" href="#" th:value="facultyId.name">
+                        <span th:text="#{recruitments.facultyName}"> </span>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" th:value="name">
+                        <span th:text="#{recruitments.name}"> </span>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" th:value="startDate">
+                        <span th:text="#{recruitments.startDate}"> </span>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" th:value="endDate">
+                        <span th:text="#{recruitments.endDate}"> </span>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" th:value="generalCapacity">
+                        <span th:text="#{faculties.generalCapacity}"> </span>
+
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item sort-order" href="#" th:value="budgetCapacity">
+                        <span th:text="#{faculties.budgetCapacity}"> </span>
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-1 text-start ">
+            <button type="button" class="order btn btn-secondary" >
+                🠕
+            </button>
+        </div>
+
+        <div class="col  text-end">
+            <span th:text="#{recruitments.filter} + ': '"> </span>
+            <div class="form-check form-check-inline ">
+
+                <input th:if="${previous != null}"
+                       class="form-check-input filter-check" type="checkbox" id="inlineCheckbox3"
+                       name="filter-check"
+                       value="previous" checked>
+
+
+                <input th:if="${previous == null}"
+                       class="form-check-input filter-check" type="checkbox" id="inlineCheckbox3"
+                       name="filter-check"
+                       value="previous">
+
+
+                <label class="form-check-label" for="inlineCheckbox3">
+                    <span th:text="#{recruitments.previous}"> </span>
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+
+                <input th:if="${current != null}"
+                       class="form-check-input filter-check" type="checkbox" id="inlineCheckbox2"
+                       name="filter-check"
+                       value="current" checked>
+
+                <input th:if="${current == null}"
+                       class="form-check-input filter-check" type="checkbox" id="inlineCheckbox2"
+                       name="filter-check"
+                       value="current">
+
+
+                <label class="form-check-label" for="inlineCheckbox2">
+                    <span th:text="#{recruitments.current}"> </span>
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+
+                <input th:if="${future != null}"
+                       class="form-check-input filter-check" type="checkbox" id="inlineCheckbox1"
+                       name="filter-check"
+                       value="future" checked>
+
+                <input th:if="${future == null}"
+                       class="form-check-input filter-check" type="checkbox" id="inlineCheckbox1"
+                       name="filter-check"
+                       value="future">
+
+
+                <label class="form-check-label" for="inlineCheckbox1">
+                    <span th:text="#{recruitments.future}"> </span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+
+        <div class="col" th:each="recruitment:  ${recruitmentList}">
+
+            <div class="card h-100">
+                <div class="card-header">
+                    <span th:text="${recruitment.facultyId.name}"> </span>
+
+                </div>
+                <div class="card-body">
+                    <a th:href="@{'/recruitment?recruitmentId=' + ${recruitment.id}}" class="stretched-link"></a>
+
+                    <h5 class="card-title">
+                        <span th:text="#{recruitments.recruitment} + ': '"> </span>
+                    </h5>
+
+                    <p class="card-text">
+                        <span th:text=" ${recruitment.name}"></span>
+                    </p>
+
+                    <p class="card-text">
+                        <span th:text="#{viewFaculty.generalCapacity} + ': ' + ${recruitment.generalCapacity}"></span>
+                    </p>
+
+                    <p class="card-text">
+                        <span th:text="#{viewFaculty.budgetCapacity} + ': ' + ${recruitment.budgetCapacity}"></span>
+                    </p>
+
+                    <p class="card-text">
+                        <span th:text="${recruitment.startDate} + ' - '"> </span>
+                        <span th:text="${recruitment.endDate}"> </span>
+
+                    </p>
+
+                    <div class="row text-center">
+                        <div class="col">
+                            <form th:action="@{/user/create-application} "
+                                  method="get">
+                                <input type="hidden" name="recruitmentId"  th:value="${recruitment.id}">
+                              <!--  <input type="hidden" name="userId" th:value="${#authentication.getPrincipal().getId()}">-->
+
+                                <button type="submit" class="btn btn-primary disabled"
+                                        sec:authorize="hasAuthority('ADMIN')">
+                                    <span th:text="#{recruitments.register}"></span>
+
+                                </button>
+
+                                <button type="submit" class="btn btn-primary disabled"
+                                        th:if="${recruitment.closed}"  sec:authorize="!hasAuthority('ADMIN')">
+                                    <span th:text="#{recruitments.register}"></span>
+                                </button>
+
+                                <button type="submit" class="btn btn-primary "
+                                        th:if="${!recruitment.closed}"
+                                        sec:authorize="!hasAuthority('ADMIN')">
+                                    <span th:text="#{recruitments.register}"></span>
+                                </button>
+
+                            </form>
+                        </div>
+
+                        <div class="col" sec:authorize="hasAuthority('ADMIN')">
+                            <form
+                                    th:action="@{/admin/close-recruitment}" method="post">
+                                <input type="hidden" name="recruitmentId" th:value="${recruitment.id}">
+
+                                <button type="submit" class="btn btn-primary disabled"
+                                        th:if="${recruitment.closed}">
+                                    <span th:text="#{recruitments.close}"></span>
+                                </button>
+
+                                <button type="submit" class="btn btn-primary "
+                                        th:if="${!recruitment.closed}">
+                                    <span th:text="#{recruitments.close}"></span>
+                                </button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div th:replace="partial/pagination"></div>
+
+</body>
+</html>

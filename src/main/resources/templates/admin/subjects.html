@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tittle</title>
+
+    <div th:replace="partial/incudes"></div>
+
+</head>
+
+<body>
+
+<div th:replace="partial/header"></div>
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-sm-8">
+            <h2>
+                <span th:text="#{subjects.subjects}"></span>
+                <b>
+                    <span th:text="#{subjects.details}"></span>
+                </b>
+            </h2>
+        </div>
+        <div class="col-sm-4 text-end">
+            <a th:href="@{/admin/add-subject}" class="btn btn-info add-new"><i class="fa fa-plus"></i>
+                <span th:text="#{subjects.addNewSubject}"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead class="bg-info ">
+                <tr>
+                    <th class="tableHead" th:value="id" scope="col">
+                        <span th:text="#{subjects.id}"></span>
+                    </th>
+                    <th class="tableHead" th:value="nameEn" scope="col">
+                        <span th:text="#{subjects.nameEn}"></span>
+                    </th>
+                    <th class="tableHead" th:value="nameRu" scope="col">
+                        <span th:text="#{subjects.nameRu}"></span>
+                    </th>
+                    <th class="tableHead" th:value="nameUk" scope="col">
+                        <span th:text="#{subjects.nameUk}"></span>
+                    </th>
+                    <th scope="col">
+                        <span th:text="#{subjects.actions}"></span>
+                    </th>
+                </tr>
+                </thead>
+                <div>
+
+                </div>
+
+                <tbody class="bg-light" th:each="subject : ${subjectList}">
+                <tr>
+                    <th scope="row" th:text="${subject.id}"></th>
+                    <td th:text="${subject.nameEn}"></td>
+                    <td th:text="${subject.nameRu}"></td>
+                    <td th:text="${subject.nameUk}"></td>
+
+                    <td>
+                        <button type="button" class=" btn btn-primary"><i class="fa fa-eye"></i></button>
+                        <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="partial/pagination"></div>
+
+</body>
+</html>
