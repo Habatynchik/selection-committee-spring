@@ -1,7 +1,6 @@
 package ua.epan.elearn.selection.committee.spring.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 
@@ -28,6 +27,5 @@ public class Subject {
 
     @Column(name = "name_uk")
     private String nameUk;
-
 
 }

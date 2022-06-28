@@ -1,16 +1,9 @@
 package ua.epan.elearn.selection.committee.spring.model.dto;
 
 import lombok.*;
-import org.hibernate.annotations.Formula;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
-import ua.epan.elearn.selection.committee.spring.model.dto.regex.RegExp;
 import ua.epan.elearn.selection.committee.spring.model.entity.Faculty;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 

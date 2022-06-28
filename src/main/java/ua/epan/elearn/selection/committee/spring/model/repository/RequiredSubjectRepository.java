@@ -11,5 +11,4 @@ import java.util.List;
 public interface RequiredSubjectRepository extends JpaRepository<RequiredSubject, Long> {
 
     List<RequiredSubject> findAllByFacultyId(Faculty facultyId);
-    void deleteByFacultyId(Faculty facultyId);
 }

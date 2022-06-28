@@ -3,7 +3,6 @@ package ua.epan.elearn.selection.committee.spring.controller.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +14,7 @@ import ua.epan.elearn.selection.committee.spring.controller.util.HtmlFilePath;
 import ua.epan.elearn.selection.committee.spring.controller.util.UriPath;
 import ua.epan.elearn.selection.committee.spring.controller.validator.ApplicationValidator;
 import ua.epan.elearn.selection.committee.spring.model.dto.ApplicationDto;
-import ua.epan.elearn.selection.committee.spring.model.dto.RecruitmentDto;
 import ua.epan.elearn.selection.committee.spring.model.entity.*;
-import ua.epan.elearn.selection.committee.spring.model.exception.FacultyNameIsReservedException;
 import ua.epan.elearn.selection.committee.spring.model.exception.UserAlreadyAppliedException;
 import ua.epan.elearn.selection.committee.spring.model.service.ApplicationService;
 import ua.epan.elearn.selection.committee.spring.model.service.RecruitmentService;
@@ -72,7 +69,6 @@ public class ApplicationController {
                                             BindingResult validationResult,
                                             Model model) {
 
-
         if (!validationResult.hasErrors()) {
 
             try {
@@ -109,6 +105,5 @@ public class ApplicationController {
 
         return HtmlFilePath.APPLICATION_PAGE;
     }
-
 
 }

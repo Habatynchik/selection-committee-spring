@@ -43,7 +43,6 @@ public class Recruitment {
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty facultyId;
 
-
     public Recruitment(RecruitmentDto recruitmentDto) {
         this.name = recruitmentDto.getName();
         this.generalCapacity = recruitmentDto.getGeneralCapacity();

@@ -13,5 +13,4 @@ public class LoginController {
         return HtmlFilePath.GUEST_LOGIN_PAGE;
     }
 
-
 }

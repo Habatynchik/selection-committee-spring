@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class RecruitmentValidator {
 
     public static void validateRecruitmentDto(RecruitmentDto recruitmentDto, BindingResult validationResult) {
-
         if (!validationResult.hasErrors()) {
 
             //generalCapacityIsMore
@@ -48,7 +47,6 @@ public class RecruitmentValidator {
                         new FieldError(RecruitmentDto.class.getName(), "endDate", "endDateBeforeStartDate")
                 );
         }
-
-
     }
+
 }

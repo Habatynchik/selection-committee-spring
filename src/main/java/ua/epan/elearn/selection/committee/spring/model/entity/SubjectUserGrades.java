@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Table(name = "subject_user_grades")
 public class SubjectUserGrades {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

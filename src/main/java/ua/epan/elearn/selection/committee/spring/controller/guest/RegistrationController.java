@@ -51,14 +51,13 @@ public class RegistrationController {
                 return UriPath.REDIRECT + UriPath.LOGIN;
             } catch (UsernameIsReservedException e) {
                 model.addAttribute("usernameIsReserved", true);
-                log.warn("Username '{}' is reserved", userDto.getUsername());
             } catch (EmailIsReservedException e) {
                 model.addAttribute("emailIsReserved", true);
-                log.warn("Email '{}' is reserved", userDto.getUsername());
             }
         }
 
         log.warn("User print some incorrect data during registration");
         return HtmlFilePath.GUEST_REGISTRATION_PAGE;
     }
+
 }

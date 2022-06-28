@@ -31,7 +31,6 @@ public class UserController {
     private final String USER_ID = "userId";
     private final String APPLICATIONS = "applications";
 
-
     private final String PAGE = "page";
     private final String ORDER = "order";
     private final String SIZE = "size";
@@ -39,7 +38,6 @@ public class UserController {
 
     private final UserService userService;
     private final ApplicationService applicationService;
-
 
     @GetMapping(UriPath.PROFILE)
     public String getProfilePage(@RequestParam(value = USER_ID) Long id,
@@ -90,6 +88,5 @@ public class UserController {
 
         return UriPath.REDIRECT + UriPath.USERS;
     }
-
 
 }

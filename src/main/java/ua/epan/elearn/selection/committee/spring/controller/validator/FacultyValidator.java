@@ -5,8 +5,6 @@ import org.springframework.validation.FieldError;
 import ua.epan.elearn.selection.committee.spring.model.dto.FacultyDto;
 import ua.epan.elearn.selection.committee.spring.model.dto.RecruitmentDto;
 
-import java.time.LocalDate;
-
 public class FacultyValidator {
 
     public static void validateFacultyDto(FacultyDto facultyDto, BindingResult validationResult) {
@@ -22,9 +20,7 @@ public class FacultyValidator {
                 validationResult.addError(
                         new FieldError(RecruitmentDto.class.getName(), "requiredSubjectList", "fewRequiredSubjects")
                 );
-
-
         }
-
     }
+
 }

@@ -1,11 +1,9 @@
 package ua.epan.elearn.selection.committee.spring.model.dto;
 
 import lombok.*;
-import ua.epan.elearn.selection.committee.spring.model.entity.ApplicationState;
 import ua.epan.elearn.selection.committee.spring.model.entity.Recruitment;
 import ua.epan.elearn.selection.committee.spring.model.entity.User;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

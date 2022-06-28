@@ -39,7 +39,6 @@ public class Application {
             "group by a.id)")
     private Long averageScore;
 
-
     public Application(ApplicationDto applicationDto) {
         this.userId = applicationDto.getUser();
         this.recruitmentId = applicationDto.getRecruitment();

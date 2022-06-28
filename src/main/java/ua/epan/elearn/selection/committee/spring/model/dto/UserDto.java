@@ -55,5 +55,4 @@ public class UserDto {
     @Size(max = 32)
     private String institution;
 
-
 }

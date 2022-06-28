@@ -1,7 +1,6 @@
 package ua.epan.elearn.selection.committee.spring.model.dto;
 
 import lombok.*;
-import ua.epan.elearn.selection.committee.spring.model.entity.RequiredSubject;
 import ua.epan.elearn.selection.committee.spring.model.entity.Subject;
 
 import javax.validation.constraints.*;
@@ -31,6 +30,5 @@ public class FacultyDto {
 
     @NotNull
     private List<Subject> requiredSubjectList;
-
 
 }
